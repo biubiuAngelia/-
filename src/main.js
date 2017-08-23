@@ -1,43 +1,54 @@
-import Vue from "vue";
-import App from "./app.vue";
-import Home from "./home.vue";
-import vip from "./vip.vue";
-import shopcar from "./shopcar.vue";
-import search from "./search.vue";
-import NewsList from "./news/newsList.vue";
+//引入第三方包 开始
+import Vue from 'vue';
+
+//引入组件 开始
+import App from './App.vue';
+import Home from './components/home/Home.vue'
+import Vip from './components/vip/Vip.vue';
+import Shopcart from './components/shopcart/Shopcart.vue';
+import Search from './components/search/Search.vue';
+//引入组件 结束
 
 
-
-//mint-ui
-import MintUi from "mint-ui";
-import "../../node_modules/mint-ui/lib/style.css";
-import "./static/libs/mui-master/dist/css/mui.css";
+//MintUi: 开始
+import MintUi from 'mint-ui';
+import 'mint-ui/lib/style.css';
 Vue.use(MintUi);
+//MintUi: 结束
+
+// Mui: 开始
+import './static/libs/mui-master/dist/css/mui.css';
+// Mui: 结束
 
 
-//router
-import VueRouter from "vue-router";
-let router = new VueRouter({
-    routes: [
-        { path: "/", component: Home },
-        { name: "Home", path: "/home", component: Home },
-        { name: "vip", path: "/vip", component: vip },
-        { name: "shopcar", path: "/shopcar", component: shopcar },
-        { name: "search", path: "/search", component: search },
-        { name: "NewsList", path: "/newslist", component: NewsList }
-    ]
-})
+//VueRouter: 开始
+import VueRouter from 'vue-router';
 Vue.use(VueRouter);
-//axios
-import Axios from "axios";
-Vue.prototype.Axios = Axios;
-Axios.defaults.baseURL = "http://182.254.146.100:8899/api/"
+let router = new VueRouter({
+   routes:[
+        //加入重定向
+        { path:'/',redirect:{name:'home'} }, 
+        {name:'home',path:'/home',component:Home},//首页
+        {name:'vip',path:'/vip',component:Vip}, //vip会员
+        {name:'shopcart',path:'/shopcart',component:Shopcart}, //购物车
+        {name:'search',path:'/search',component:Search}, //查找
+
+   ]
+})
+//VueRouter: 结束
+
+//Axios: 开始
+import Axios from 'axios';
+Vue.prototype.$ajax = Axios;
+Axios.defaults.baseURL = 'http://182.254.146.100:8899/api/';
+//Axios: 结束
 
 
+//引入第三方包 结束
 
 
 new Vue({
-    el: "#app",
+    el:'#app',
     router,
-    render: c => c(App)
+    render:c=>c(App)
 })
